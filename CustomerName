@@ -1,0 +1,115 @@
+package _3Sept19;
+
+public class CustomerName {
+	
+	String FirstName;
+	String MiddleName;
+	String LastName;
+	String PhoneNumber;
+	String Street;
+	String City;
+	String State;
+	String zipCode;
+	String fullName;
+	boolean isDeleted;
+	
+	public CustomerName () {}
+	
+	public CustomerName(String firstName,  String lastName, String street, String city, String state, String zipcode, String telephoneNo, String fullname ) {
+		FirstName = firstName;
+		//MiddleName = middleName;
+		LastName = lastName;
+		Street = street;
+		City = city;
+		State = state;
+		zipCode = zipcode;
+		PhoneNumber = telephoneNo;
+		fullName = fullname;
+		isDeleted = false;
+	}
+		
+
+	public String getFirstName() {
+		return FirstName;
+	}
+
+	public void setFirstName(String firstName) {
+		FirstName = firstName;
+	}
+
+
+
+	public String getLastName() {
+		return LastName;
+	}
+
+	public void setLastName(String lastName) {
+		LastName = lastName;
+	}
+
+	public String getPhoneNumber() {
+		return PhoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		PhoneNumber = phoneNumber;
+	}
+
+	public String getStreet() {
+		return Street;
+	}
+
+	public void setStreet(String street) {
+		this.Street = street;
+	}
+
+	public String getCity() {
+		return City;
+	}
+
+	public void setCity(String city) {
+		this.City = city;
+	}
+
+	public String getState() {
+		return State;
+	}
+
+	public void setState(String state) {
+		this.State = state;
+	}
+
+	public String getZipcode() {
+		return zipCode;
+	}
+
+	public void setZipcode(String zipcode) {
+		this.zipCode = zipcode;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void setisDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
+	@Override
+	public String toString() {
+		return "CustomerName [Name: " + fullName + ", Phone Number: " + PhoneNumber + ", Address:  " + Street + ", " + City + ", " + State
+				+ ", " + zipCode + ", Recorded?: " + isDeleted + "]";
+	}
+
+
+
+
+}
