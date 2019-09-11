@@ -1,0 +1,237 @@
+package _3Sept19;
+
+import java.util.Scanner;
+
+public class PhoneBookApp {
+	public static Scanner in = new Scanner(System.in);
+	private static CustomerName[] customers = new CustomerName[100];
+	private static int empty_space;
+	public static void main(String[] args) {
+		empty_space = 0;
+		while (true) {
+			System.out.println("Select a Task"
+					+ "\n" + "1. Add User"
+					+ "\n" + "2. Search"
+					+ "\n" + "3. Delete"
+					+ "\n" + "4. Update Record"
+					+ "\n" + "5. Display All"
+					+ "\n" + "6. Exit"
+					);
+			
+			
+			String selection = in.nextLine();
+
+			switch (selection) {
+			case "1":
+				AddContact();
+				break;
+			case "2":
+				System.out.println("Select a search method"
+						+ "\n1. Search by First Name"
+						+ "\n2. Search by Last Name"
+						+ "\n3. Search by Phone Number"
+						+ "\n4. Search by City"
+						+ "\n5. Search by State"
+						+ "\n6. Search by Zipcode");
+				
+						String selection2 = in.nextLine();
+				
+						switch (selection2) {
+							case "1":
+								SearchUserFirstName();
+								break;
+							case "2":
+								SearchUserLastName();
+								break;
+							case "3":
+								SearchPhoneNumber();
+								break;
+							case "4":
+								SearchUserCity();
+								break;
+							case "5":
+								SearchUserState();
+								break;
+							default:
+								break;
+						}
+						
+				break;
+			case "3":
+				DeleteUser();
+				break;
+			case "4":
+				UpdateRecord();
+				break;
+			case "5":
+				DisplayAll();
+				break;
+			case "6":
+				//ExitProgram();
+				System.out.println("Thank you. Goodbye...");
+				System.exit(0);
+				break;
+			default:
+				System.err.println("Input Not Recognized");
+				break;
+			}
+		}
+	}
+
+	private static void AddContact() {
+		System.out.println("Enter person you would like to add: ");
+		String personLong = in.nextLine();
+		String [] separatedFields = personLong.split(",");
+		String fullname = separatedFields[0];
+		String street = separatedFields[1];
+		String city = separatedFields[2];
+		String state = separatedFields[3];
+		String zipcode = separatedFields[4];
+		String telephoneNo = separatedFields[5].replace(" ","");
+		
+		String[] names = fullname.split(" ");
+		int number_of_names = names.length;
+		String firstName = names[0];
+		String lastName = names[number_of_names-1];
+		
+
+		CustomerName person = new CustomerName(firstName, lastName, street, city, state, zipcode, telephoneNo, fullname);
+		
+		customers [empty_space] = person;
+			empty_space++;
+		
+		System.out.println("You entered " + person);
+		
+	}
+	
+	private static void SearchUserFirstName() {
+			System.out.println("Enter the first name of the person you want to locate: ");
+			String personFind = in.nextLine();
+			for (int i = 0; i <empty_space; i++) {
+				if (personFind.compareTo(customers[i].FirstName) == 0) {
+					if (customers[i].isDeleted() == false) {
+						System.out.println(personFind+ " was found at the position of "+ i + " in the array.");
+					}
+				}
+			}
+	}
+			
+	private static void SearchUserLastName() {
+			System.out.println("Enter the last name of the person you want to locate: ");
+			String personFind = in.nextLine();
+				
+			for (int i = 0; i <empty_space; i++) {
+				if (personFind.compareTo(customers[i].LastName) == 0) {
+					if (customers[i].isDeleted() == false) {
+					System.out.println(personFind+ " was found at the position of "+ i + " in the array.");
+					}
+				}
+			}
+	}
+	
+	private static void SearchPhoneNumber() {
+		System.out.println("Enter the telephone number of the person you want to locate: ");
+		String personFind = in.nextLine();
+		
+		for (int i = 0; i <empty_space; i++) {
+			if (personFind.compareTo(customers[i].PhoneNumber) == 0) {
+				if (customers[i].isDeleted() == false) {
+					System.out.println(personFind+ " was found at the position of "+ i + " in the array.");
+				}
+			}
+		}
+	}
+
+	private static void SearchUserCity() {
+		System.out.println("Enter the name of the city the person lives in that you want to locate: ");
+		String personFind = in.nextLine();
+	
+		for (int i = 0; i <empty_space; i++) {
+			if (personFind.compareTo(customers[i].City) == 0) {
+				if (customers[i].isDeleted() == false) {
+					System.out.println(personFind+ " was found at the position of "+ i + " in the array.");
+				}
+			}
+		}
+}
+	
+	private static void SearchUserState() {
+		System.out.println("Enter the appropriate state abbreviation for the person you want to locate: ");
+		String personFind = in.nextLine();
+		
+		for (int i = 0; i <empty_space; i++) {
+			if (personFind.compareTo(customers[i].State) == 0) {
+				if (customers[i].isDeleted() == false) {
+					System.out.println(personFind+ " was found at the position of "+ i + " in the array.");
+				}
+			}
+		}
+	}
+			
+	private static void DeleteUser() {
+			System.out.println("Enter the record you want to delete: [0-" + (empty_space-1) +"]");
+			int personFind = Integer.valueOf( in.nextLine() );
+					
+			customers[personFind].isDeleted = true;
+	}
+					
+	private static void UpdateRecord() {
+			System.out.println("Enter the phone number of the record you want to update: ");
+			String personFind = in.nextLine();
+			
+			for (int i = 0; i <empty_space; i++) {
+				if (personFind.equals(customers[i].PhoneNumber)) { 
+					System.out.println(personFind+ " was found at the position of "+ i + " in the array.");
+					customers[i].isDeleted = true;
+				} 
+				/*
+				 * else {
+				 
+					System.out.println("personFind is ---" + personFind + "---");
+					System.out.println("customer phone number is ---" + customers[i].PhoneNumber + "---");
+					System.out.println("comparison returns " + personFind.compareTo(customers[i].PhoneNumber));
+				}
+				*/
+			}
+			//John Doe, 114 Market St, St Louis, MO, 63403, 6366435698
+			//John E Doe, 324 Main St, St Charles, MO,63303, 8475390126
+			//John Michael West Doe, 574 Pole ave, St. Peters, MO, 63333, 5628592375
+			
+			System.out.println("Enter new information for record you want to update: ");
+			String personUpdate = in.nextLine();
+			String [] separateFields2 =  personUpdate.split(",");
+			
+			String fullName2 = separateFields2[0];
+			//String lastName=separateFields2[1];
+			String street= separateFields2[1];
+			String city = separateFields2[2];
+			String state = separateFields2[3];
+			String zipcode = separateFields2[4];
+			String telephoneNo = separateFields2[5];
+			//String fullname2 = separateFields2[6];
+			
+			String[] names2 = fullName2.split(" ");
+			int number_of_names2 = names2.length;
+			String firstName2 = names2[0];
+			String lastName2 = names2[number_of_names2-1];
+			
+			CustomerName person = new CustomerName(firstName2, lastName2, street, city, state, zipcode, telephoneNo, fullName2);
+			
+			customers [empty_space] = person;
+				empty_space++;
+			
+			
+			System.out.println("Record updated to: " + person);
+				
+			}			
+	
+	private static void DisplayAll() {
+			
+			for (int i = 0; i <empty_space; i++) {
+				if (customers[i].isDeleted == false) {
+					System.out.println(customers[i].toString());
+				}
+			}
+
+	}
+}
